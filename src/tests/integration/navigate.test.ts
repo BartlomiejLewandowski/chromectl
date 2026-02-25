@@ -13,7 +13,7 @@ let tmpFile: string
 
 beforeAll(async () => {
   browser = await chromium.launch({headless: true})
-  tmpFile = path.join(os.tmpdir(), 'chrome-cmd-nav-test.html')
+  tmpFile = path.join(os.tmpdir(), 'chromectl-nav-test.html')
   await fs.writeFile(tmpFile, `<!DOCTYPE html><html><head><title>Nav Test</title></head><body><h1>Hello</h1></body></html>`)
 }, 30_000)
 

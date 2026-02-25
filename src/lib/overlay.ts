@@ -56,6 +56,22 @@ export const OVERLAY_SCRIPT = `
     \`;
     document.body.appendChild(label);
 
+    const banner = document.createElement('div');
+    banner.style.cssText = \`
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 2147483647;
+      background: rgba(0, 120, 255, 0.92);
+      color: white;
+      font: bold 13px/1 monospace;
+      padding: 8px 16px;
+      text-align: center;
+      pointer-events: none;
+      letter-spacing: 0.03em;
+    \`;
+    banner.textContent = 'PICK MODE  —  Click an element  ·  Shift+click for parent  ·  Esc to cancel';
+    document.body.appendChild(banner);
+
     function getSelector(el) {
       const parts = [];
       let node = el;
@@ -98,6 +114,7 @@ export const OVERLAY_SCRIPT = `
       overlay.remove();
       highlight.remove();
       label.remove();
+      banner.remove();
       document.removeEventListener('mouseover', onMouseOver, true);
       document.removeEventListener('click', onClick, true);
       document.removeEventListener('keydown', onKeyDown, true);

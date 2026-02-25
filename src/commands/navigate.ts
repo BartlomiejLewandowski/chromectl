@@ -1,21 +1,24 @@
-import {Args, Command} from '@oclif/core'
+import {Args, Command, Flags} from '@oclif/core'
 
 import {getActivePage} from '../lib/connect.js'
 
 export default class Navigate extends Command {
   static args = {
-    session: Args.string({description: 'Session name', required: true}),
     url: Args.string({description: 'URL to navigate to', required: true}),
   }
 
   static description = 'Navigate the active tab to a URL'
 
-  static examples = ['<%= config.bin %> navigate work https://google.com', '<%= config.bin %> navigate dev http://localhost:3000']
+  static examples = ['<%= config.bin %> navigate -s work https://google.com', '<%= config.bin %> navigate -s dev http://localhost:3000']
+
+  static flags = {
+    session: Flags.string({char: 's', description: 'Session name', required: true}),
+  }
 
   async run(): Promise<void> {
-    const {args} = await this.parse(Navigate)
+    const {args, flags} = await this.parse(Navigate)
 
-    const {browser, page} = await getActivePage(args.session)
+    const {browser, page} = await getActivePage(flags.session)
 
     try {
       this.log(`Navigating to ${args.url}...`)

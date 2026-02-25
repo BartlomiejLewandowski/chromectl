@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pick a Div</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f0f0f0;
+      gap: 20px;
+    }
+    h1 { color: #333; margin-bottom: 10px; }
+    .divs {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .box {
+      width: 160px;
+      height: 160px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.1s;
+    }
+    .box:hover { transform: scale(1.05); }
+    #red    { background: #e74c3c; }
+    #green  { background: #2ecc71; }
+    #blue   { background: #3498db; }
+    #yellow { background: #f39c12; color: #333; }
+    #purple { background: #9b59b6; }
+    p.hint  { color: #666; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <h1>Click a div to pick it</h1>
+  <p class="hint">Hover to highlight · Click to select · Shift+click for parent · Esc to cancel</p>
+  <div class="divs">
+    <div id="red"    class="box">Red</div>
+    <div id="green"  class="box">Green</div>
+    <div id="blue"   class="box">Blue</div>
+    <div id="yellow" class="box">Yellow</div>
+    <div id="purple" class="box">Purple</div>
+  </div>
+</body>
+</html>

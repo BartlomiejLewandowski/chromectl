@@ -6,15 +6,15 @@ import {getActivePage} from '../lib/connect.js'
 export default class Screenshot extends Command {
   static args = {
     file: Args.string({description: 'Output file path (default: screenshot-<timestamp>.png)'}),
-    session: Args.string({description: 'Session name', required: true}),
   }
 
   static description = 'Take a screenshot of the active tab'
 
-  static examples = ['<%= config.bin %> screenshot work', '<%= config.bin %> screenshot work /tmp/page.png', '<%= config.bin %> screenshot work --full-page']
+  static examples = ['<%= config.bin %> screenshot -s work', '<%= config.bin %> screenshot -s work /tmp/page.png', '<%= config.bin %> screenshot -s work --full-page']
 
   static flags = {
     'full-page': Flags.boolean({default: false, description: 'Capture the full scrollable page'}),
+    session: Flags.string({char: 's', description: 'Session name', required: true}),
   }
 
   async run(): Promise<void> {
@@ -23,7 +23,7 @@ export default class Screenshot extends Command {
     const timestamp = new Date().toISOString().replaceAll(':', '-').replace('.', '-')
     const outFile = args.file ?? path.join(process.cwd(), `screenshot-${timestamp}.png`)
 
-    const {browser, page} = await getActivePage(args.session)
+    const {browser, page} = await getActivePage(flags.session)
 
     try {
       await page.screenshot({fullPage: flags['full-page'], path: outFile})

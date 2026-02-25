@@ -1,12 +1,14 @@
 {
-  "name": "chrome-cmd",
+  "name": "chromectl",
   "version": "0.1.0",
-  "description": "CLI tool for managing persistent Chrome sessions",
+  "description": "CLI tool for managing persistent Chrome sessions. All browser commands take -s <session> to target a running session.",
   "type": "module",
+  "license": "MIT",
   "bin": {
-    "chrome": "./bin/run.js"
+    "chromectl": "./bin/run.js"
   },
   "scripts": {
+    "setup": "npm run build && npm link",
     "build": "tsc",
     "dev": "tsc --watch",
     "test": "vitest run",
@@ -26,8 +28,8 @@
     "node": ">=18.0.0"
   },
   "oclif": {
-    "bin": "chrome",
-    "dirname": "chrome-cmd",
+    "bin": "chromectl",
+    "dirname": "chromectl",
     "commands": "./dist/commands",
     "plugins": [],
     "topicSeparator": " "

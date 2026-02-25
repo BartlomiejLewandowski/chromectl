@@ -11,27 +11,27 @@ interface ScrapeResult {
 export default class Scrape extends Command {
   static args = {
     selector: Args.string({description: 'CSS selector', required: true}),
-    session: Args.string({description: 'Session name', required: true}),
   }
 
   static description = 'Extract content from the page by CSS selector'
 
   static examples = [
-    '<%= config.bin %> scrape work "h1"',
-    '<%= config.bin %> scrape work ".article-body" --html',
-    '<%= config.bin %> scrape work "table tr" --all',
+    '<%= config.bin %> scrape -s work "h1"',
+    '<%= config.bin %> scrape -s work ".article-body" --html',
+    '<%= config.bin %> scrape -s work "table tr" --all',
   ]
 
   static flags = {
     all: Flags.boolean({default: false, description: 'Match all elements (returns array)'}),
     html: Flags.boolean({default: false, description: 'Include outerHTML in output'}),
     json: Flags.boolean({default: false, description: 'Output as JSON'}),
+    session: Flags.string({char: 's', description: 'Session name', required: true}),
   }
 
   async run(): Promise<void> {
     const {args, flags} = await this.parse(Scrape)
 
-    const {browser, page} = await getActivePage(args.session)
+    const {browser, page} = await getActivePage(flags.session)
 
     try {
       if (flags.all) {

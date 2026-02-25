@@ -1,27 +1,24 @@
-import {Args, Command, Flags} from '@oclif/core'
+import {Command, Flags} from '@oclif/core'
 
 import {getActivePage} from '../lib/connect.js'
 
 export default class Logs extends Command {
-  static args = {
-    session: Args.string({description: 'Session name', required: true}),
-  }
-
   static description = 'Stream console and network events from the active tab'
 
-  static examples = ['<%= config.bin %> logs work', '<%= config.bin %> logs work --no-network', '<%= config.bin %> logs work --no-console']
+  static examples = ['<%= config.bin %> logs -s work', '<%= config.bin %> logs -s work --no-network', '<%= config.bin %> logs -s work --no-console']
 
   static flags = {
     console: Flags.boolean({allowNo: true, default: true, description: 'Show console messages'}),
     network: Flags.boolean({allowNo: true, default: true, description: 'Show network requests'}),
+    session: Flags.string({char: 's', description: 'Session name', required: true}),
   }
 
   async run(): Promise<void> {
-    const {args, flags} = await this.parse(Logs)
+    const {flags} = await this.parse(Logs)
 
-    const {browser, page} = await getActivePage(args.session)
+    const {browser, page} = await getActivePage(flags.session)
 
-    this.log(`Streaming logs for session "${args.session}" (Ctrl+C to stop)...\n`)
+    this.log(`Streaming logs for session "${flags.session}" (Ctrl+C to stop)...\n`)
 
     if (flags.console) {
       page.on('console', (msg) => {

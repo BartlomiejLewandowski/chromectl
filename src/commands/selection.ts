@@ -1,20 +1,20 @@
-import {Args, Command} from '@oclif/core'
+import {Command, Flags} from '@oclif/core'
 
 import {getActivePage} from '../lib/connect.js'
 
 export default class Selection extends Command {
-  static args = {
-    session: Args.string({description: 'Session name', required: true}),
-  }
-
   static description = 'Capture the current text selection in the active tab'
 
-  static examples = ['<%= config.bin %> selection work']
+  static examples = ['<%= config.bin %> selection -s work']
+
+  static flags = {
+    session: Flags.string({char: 's', description: 'Session name', required: true}),
+  }
 
   async run(): Promise<void> {
-    const {args} = await this.parse(Selection)
+    const {flags} = await this.parse(Selection)
 
-    const {browser, page} = await getActivePage(args.session)
+    const {browser, page} = await getActivePage(flags.session)
 
     try {
       const result = await page.evaluate(() => {

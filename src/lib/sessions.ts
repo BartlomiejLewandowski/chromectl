@@ -11,7 +11,7 @@ export interface SessionMap {
   [name: string]: SessionEntry
 }
 
-const CHROME_CMD_DIR = path.join(os.homedir(), '.chrome-cmd')
+const CHROME_CMD_DIR = path.join(os.homedir(), '.chromectl')
 const SESSIONS_FILE = path.join(CHROME_CMD_DIR, 'sessions.json')
 export const PROFILES_DIR = path.join(CHROME_CMD_DIR, 'profiles')
 
