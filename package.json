@@ -1,0 +1,35 @@
+{
+  "name": "chrome-cmd",
+  "version": "0.1.0",
+  "description": "CLI tool for managing persistent Chrome sessions",
+  "type": "module",
+  "bin": {
+    "chrome": "./bin/run.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:unit": "vitest run src/tests/sessions.test.ts src/tests/connect.test.ts",
+    "test:integration": "vitest run src/tests/integration"
+  },
+  "dependencies": {
+    "@oclif/core": "^4.0.0",
+    "playwright": "^1.49.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "oclif": {
+    "bin": "chrome",
+    "dirname": "chrome-cmd",
+    "commands": "./dist/commands",
+    "plugins": [],
+    "topicSeparator": " "
+  }
+}
